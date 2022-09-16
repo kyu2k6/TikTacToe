@@ -54,11 +54,6 @@ void printNumbers() {
 }
 
 void drawBoard() {
-        printNumbers();
-        for (int i = 0; i < 3; i++) {
-
-
-void drawBoard() {
 	printNumbers();
 	for (int i = 0; i < 3; i++) {
 		cout << " " << char('A'+i);
