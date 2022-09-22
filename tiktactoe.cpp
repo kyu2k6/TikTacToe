@@ -2,19 +2,18 @@
 //9-14-22
 //TicTacToe 2 player game
 
-//Cite for refrence:
-//https://stackoverflow.com/questions/48737248/how-do-i-print-a-tic-tac-toe-board-after-the-user-enters-in-the-rows-and-columns
-
 #include <iostream>
 #include <cstring>
+#include <cstdlib>
+
 using namespace std;
 
-void drawBoard(int num, int letter);
-bool check_space(char letter, int number, char board[3][3]);
+void drawBoard(int num, int letter, char board[3][3]);
+bool check_space(char letter, int number, char board[3][3], int &turn);
 bool check_win();
 
 int main() {
-        char board[3][3] = {{ 0 }};
+        char board[3][3] = {{ '-' }};
         char play = 'y';
         //x turn = 0
         //o turn = 1
@@ -26,18 +25,18 @@ int main() {
                 cin >> letter;
                 cout << "Please enter a number (1 to 3): " << endl;
                 cin >> number;
-                if (check_space(letter, number, board) == false) {
+                if (check_space(letter, number, board, turn) == false) {
                         cout << "Already taken, try again!" << endl;
                 }
                 else {
                         if (letter == 'a') {
-                                drawBoard(number, 0);
+                                drawBoard(number, 0, board);
                         }
                         if (letter == 'b') {
-                                drawBoard(number, 1);
+                                drawBoard(number, 1, board);
                         }
                         if (letter == 'c') {
-                                drawBoard(number, 2);
+                                drawBoard(number, 2, board);
                         }
                 }
                 play = 'n';
@@ -49,14 +48,20 @@ bool check_win() {
 
 }
 
-bool check_space(char letter, int number, char board[3][3]) {
+bool check_space(char letter, int number, char board[3][3], int &turn) {
+        number -= 1;
         if (letter == 'a') {
                 if (board[0][number] == 1) {
                         return false;
                 }
                 else {
-                        board[0][number] = 1;
-                        return true;
+                        if (turn == 0) {
+                                board[0][number] = 'X';
+                        }
+                        else {
+                                board[0][number] = 'O';
+                        }
+                        turn = abs(turn-1);
                 }
         }
         if (letter == 'b') {
@@ -65,50 +70,48 @@ bool check_space(char letter, int number, char board[3][3]) {
                 }
                 else {
                         board[1][number] = 1;
-                        return true;
+                         if (turn == 0) {
+                                board[0][number] = 'X';
+                        }
+                        else {
+                                board[0][number] = 'O';
+                        }
+                        turn = abs(turn-1);
                 }
         }
         if (letter == 'c') {
-		if (board[1][number] == 1) {
+                if (board[1][number] == 1) {
                         return false;
                 }
                 else {
                         board[1][number] = 1;
-                        return true;
+                         if (turn == 0) {
+                                board[0][number] = 'X';
+                        }
+                        else {
+                                board[0][number] = 'O';
+                        }
+                        turn = abs(turn-1);
                 }
         }
+
+        return true;
 }
 
 void printNumbers() {
-        cout << "   ";
         for (int i = 0; i < 3; i++) {
-                cout <<  "   " << i+1 << " ";
+                cout << i+1;
         }
         cout << endl;
 }
 
-void drawBoard(int num, int letter) {
+void drawBoard(int num, int letter, char board[3][3]) {
         printNumbers();
         for (int i = 0; i < 3; i++) {
                 cout << " " << char('A'+i);
-                if (letter == i) {
-                        for (int j = 0; j < 3; j++) {
-                                if (j == num) {
-                                        cout << "  x  ";
-                                }
-                                else {
-                                        cout << "  |  ";
-                                }
-                        }
+                for (int j = 0; j < 3; j++) {
+                        cout << board[i][j];
                 }
-                else {
-                        for (int j = 0; j < 3; j++) {
-                                cout << "  |  ";
-                        }
-                }
-                cout << " | " << endl;
+                cout << endl;
         }
-        cout << endl;
-
 }
-                                                                                           
