@@ -13,7 +13,7 @@ bool check_space(char letter, int number, char board[3][3], int &turn);
 bool check_win();
 
 int main() {
-        char board[3][3] = {{ '-' }};
+        char board[3][3] = {{'2','2','2'},{'2','2','2'},{'2','2','2'}};
         char play = 'y';
         //x turn = 0
         //o turn = 1
@@ -30,6 +30,7 @@ int main() {
                 }
                 else {
                         if (letter == 'a') {
+                                cout << board[0][2] << endl;
                                 drawBoard(number, 0, board);
                         }
                         if (letter == 'b') {
@@ -51,54 +52,38 @@ bool check_win() {
 bool check_space(char letter, int number, char board[3][3], int &turn) {
         number -= 1;
         if (letter == 'a') {
-                if (board[0][number] == 1) {
+                if (board[0][number] == '1' || board[0][number] == '0') {
                         return false;
                 }
-                else {
-                        if (turn == 0) {
-                                board[0][number] = 'X';
-                        }
-                        else {
-                                board[0][number] = 'O';
-                        }
+                else
+                        cout << turn << endl;{
+                        board[0][number] = char(turn);
                         turn = abs(turn-1);
                 }
         }
         if (letter == 'b') {
-                if (board[1][number] == 1) {
+                if (board[1][number] == '1' || board[0][number] == '0') {
                         return false;
                 }
                 else {
-                        board[1][number] = 1;
-                         if (turn == 0) {
-                                board[0][number] = 'X';
-                        }
-                        else {
-                                board[0][number] = 'O';
-                        }
+                        board[1][number] = char(turn);
                         turn = abs(turn-1);
                 }
         }
         if (letter == 'c') {
-                if (board[1][number] == 1) {
+                if (board[2][number] == '1' || board[0][number] == '0') {
                         return false;
                 }
                 else {
-                        board[1][number] = 1;
-                         if (turn == 0) {
-                                board[0][number] = 'X';
-                        }
-                        else {
-                                board[0][number] = 'O';
-                        }
+                        board[2][number] = char(turn);
                         turn = abs(turn-1);
                 }
         }
-
         return true;
 }
 
 void printNumbers() {
+        cout << " ";
         for (int i = 0; i < 3; i++) {
                 cout << i+1;
         }
@@ -108,10 +93,20 @@ void printNumbers() {
 void drawBoard(int num, int letter, char board[3][3]) {
         printNumbers();
         for (int i = 0; i < 3; i++) {
-                cout << " " << char('A'+i);
+                cout << char('A'+i);
                 for (int j = 0; j < 3; j++) {
-                        cout << board[i][j];
+
+                        cout << "char" << board[i][j];
+                        /*if (board[i][j] == 0) {
+                                cout << "X";
+                        }
+                        if (board[i][j] == 1) {
+                                cout << "O";
+                        }
+                        else {
+                                cout << board[i][j];
+                        }*/
                 }
                 cout << endl;
         }
-}
+}                                                                                                                         
