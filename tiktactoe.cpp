@@ -1,7 +1,8 @@
 //Kevin Yu
 //9-14-22
-//TicTacToe 2 player gamei
+//TicTacToe 2 playergame
 
+//Packages
 #include <iostream>
 #include <cstring>
 #include <cstdlib>
@@ -13,13 +14,17 @@ bool check_space(char letter, int number, char board[3][3], int &turn, int &tie)
 bool check_win(char board[3][3], int &turn);
 
 int main() {
+        //win tracker
         int x_wins = 0;
         int o_wins = 0;
         int tie = 0;
+        //board
         char board[3][3] = {{'2','2','2'},{'2','2','2'},{'2','2','2'}};
+        //starts as play
         char play = 'y';
         //x turn = 0
         //o turn = 1
+        //starts on x always
         int turn = 0;
         char letter;
         int number;
@@ -28,9 +33,11 @@ int main() {
                 cin >> letter;
                 cout << "Please enter a number (1 to 3): " << endl;
                 cin >> number;
+                //check if space is taken
                 if (check_space(letter, number, board, turn, tie) == false) {
                         cout << "Already taken, try again!" << endl;
                 }
+                //changes value on board to value of character
                 else {
 
                         if (letter == 'a') {
@@ -43,7 +50,7 @@ int main() {
                                 drawBoard(number, 2, board);
                         }
                 }
-
+                //checks if you won
                 if (check_win(board, turn) == true) {
                         if (turn == 0) {
                                 o_wins += 1;
@@ -62,13 +69,14 @@ int main() {
                                         }
                                 }
                                 turn = 0;
-                                tie = 0;
+                                                                tie = 0;
                         }
                         else {
                                 cout << "X wins: " << x_wins << ", O wins: " << o_wins << endl;
                                 break;
                         }
                 }
+                //checks for tie
                 else if (tie == 9) {
                         cout << "TIE" << endl;
                         cout << "Play again? Put in y for yes and n for no, " << endl;
@@ -90,43 +98,43 @@ int main() {
         }
         return 0;
 }
-
+//all the win conditions
 bool check_win(char board[3][3], int &turn) {
-        int player;
-        if (turn == 0) {
-                player = '1';
-        }
-        else {
-                player = '0';
-        }
-        if ((board[0][0] == player) && (board[0][1] == player) && (board[0][2] == player)) {
-                return true;
-        }
-        if ((board[1][0] == player) && (board[1][1] == player) && (board[1][2] == player)) {
-                return true;
-        }
-        if ((board[2][0] == player) && (board[2][1] == player) && (board[2][2] == player)) {
-                return true;
-        }
-        if ((board[0][0] == player) && (board[1][0] == player) && (board[2][0] == player)) {
-                return true;
-        }
-        if ((board[0][1] == player) && (board[1][1] == player) && (board[2][1] == player)) {
-                return true;
-        }
-        if ((board[0][2] == player) && (board[1][2] == player) && (board[2][2] == player)) {
-                return true;
-        }
-        if ((board[0][0] == player) && (board[1][1] == player) && (board[2][2] == player)) {
-                return true;
-        }
-        if ((board[0][2] == player) && (board[1][1] == player) && (board[2][0] == player)) {
- }
-
-        return false;
-
+       int player;
+       if (turn == 0) {
+               player = '1';
+       }
+       else {
+               player = '0';
+       }
+       if ((board[0][0] == player) && (board[0][1] == player) && (board[0][2] == player)) {
+               return true;
+       }
+       if ((board[1][0] == player) && (board[1][1] == player) && (board[1][2] == player)) {
+               return true;
+       }
+       if ((board[2][0] == player) && (board[2][1] == player) && (board[2][2] == player)) {
+               return true;
+       }
+       if ((board[0][0] == player) && (board[1][0] == player) && (board[2][0] == player)) {
+               return true;
+       }
+       if ((board[0][1] == player) && (board[1][1] == player) && (board[2][1] == player)) {
+               return true;
+       }
+       if ((board[0][2] == player) && (board[1][2] == player) && (board[2][2] == player)) {
+               return true;
+       }
+       if ((board[0][0] == player) && (board[1][1] == player) && (board[2][2] == player)) {
+               return true;
+       }
+       if ((board[0][2] == player) && (board[1][1] == player) && (board[2][0] == player)) {
+               return true;
+       }
 }
 
+
+//checks the value on the board to see what is there or not
 bool check_space(char letter, int number, char board[3][3], int &turn, int &tie) {
         number -= 1;
         if (letter == 'a') {
@@ -172,6 +180,8 @@ bool check_space(char letter, int number, char board[3][3], int &turn, int &tie)
                         else {
                                 board[2][number] = '0';
                         }
+                                                                                                                                                                
+                     }
                         tie += 1;
                         turn = abs(turn-1);
                         return true;
@@ -179,6 +189,7 @@ bool check_space(char letter, int number, char board[3][3], int &turn, int &tie)
         }
 }
 
+//prints the numbers on the board
 void printNumbers() {
         cout << " ";
         for (int i = 0; i < 3; i++) {
@@ -186,7 +197,7 @@ void printNumbers() {
         }
         cout << endl;
 }
-
+//prints the rows on the board with the given x and o
 void drawBoard(int num, int letter, char board[3][3]) {
         printNumbers();
         for (int i = 0; i < 3; i++) {
@@ -205,3 +216,4 @@ void drawBoard(int num, int letter, char board[3][3]) {
                 cout << endl;
         }
 }
+                                                                                                                                                
